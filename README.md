@@ -38,4 +38,4 @@ kubectl -n kube-node-tuning rollout restart ds kube-node-tuning
 
 * Different OS Support. (Ubuntu, CentOS, RHEL, etc.)
 * Multi profile
-* Operator instead of Saemonset
+* Operator instead of Daemonset
