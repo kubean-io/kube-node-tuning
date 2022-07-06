@@ -1,8 +1,10 @@
 # kube-node-tuning
 
-kube-node-tuning is aimed at
+kube-node-tuning is aimed at kernel tuning by kubernetes. It's useful to :
 
-* tuning the kernel settings of the node by kubernetes
+* High performance application
+* Large Scale Cluster
+* Network Tuning
 
 ## Quick Start
 
