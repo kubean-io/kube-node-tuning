@@ -7,8 +7,7 @@ kube-node-tuning is aimed at
 ## Quick Start
 
 ```
-git clone git@github.com:DaoCloud/kube-node-tuning.git
-kubectl apply -f hack/kube-node-tunning.yaml
+kubectl apply -f https://raw.githubusercontent.com/DaoCloud/kube-node-tuning/main/hack/kube-node-tunning.yaml
 ```
 
 The kernel's sysctl settings are applied to the node at /etc/99-kube-node-tuning.conf.
