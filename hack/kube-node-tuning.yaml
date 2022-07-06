@@ -26,8 +26,6 @@ data:
     set -ex
     cp 99-kube-node-tuning.conf /etc/sysctl.d
     sysctl -p /etc/sysctl.d/99-kube-node-tuning.conf
-    # cat 99-kube-node-tuning.conf
-    sleep infinity
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -46,16 +44,13 @@ spec:
       labels:
         app: kube-node-tuning
     spec:
-      containers:
-        - name: kube-node-tuning
+      initContainers:
+        - name: setup-sysctl
           image: docker.m.daocloud.io/alpine
           command:
             - /bin/sh
             - setup.sh
           workingDir: /opt/kube-node-tuning
-          # command:
-          #   - sleep
-          #   - infinity
           volumeMounts:
             - name: sysctl-config-volume
               mountPath: /opt/kube-node-tuning
@@ -64,6 +59,12 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
+      containers:
+        - name: kube-node-tuning
+          image: docker.m.daocloud.io/alpine
+          command:
+            - sleep
+            - infinity
       nodeSelector:
         kubernetes.io/os: linux
       priorityClassName: system-node-critical
