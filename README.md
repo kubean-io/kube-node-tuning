@@ -2,12 +2,12 @@
 
 kube-node-tuning is aimed at
 
-* Tunning the kernel settings of the node by kubernetes
+* tuning the kernel settings of the node by kubernetes
 
 ## Quick Start
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/DaoCloud/kube-node-tuning/main/hack/kube-node-tunning.yaml
+kubectl apply -f https://raw.githubusercontent.com/DaoCloud/kube-node-tuning/main/hack/kube-node-tuning.yaml
 ```
 
 The kernel's sysctl settings are applied to the node at /etc/99-kube-node-tuning.conf.
@@ -25,10 +25,10 @@ sysctl -a # view the sysctl setting
 
 ```
 # Change the config
-kubectl -n kube-node-tunning edit cm/sysctl-config -o yaml
+kubectl -n kube-node-tuning edit cm/sysctl-config -o yaml
 
 # Restart the DaemonSet
-kubectl -n kube-node-tunning rollout restart ds kube-node-tunning
+kubectl -n kube-node-tuning rollout restart ds kube-node-tuning
 ```
 
 
