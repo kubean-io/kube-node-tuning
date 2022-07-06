@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: kube-node-tunning
+  name: kube-node-tuning
 
 ---
 kind: ConfigMap
 apiVersion: v1
 metadata:
   name: sysctl-config
-  namespace: kube-node-tunning
+  namespace: kube-node-tuning
 data:
-  99-kube-node-tunning.conf: |-
+  99-kube-node-tuning.conf: |-
     kernel.pid_max=131072
     net.netfilter.nf_conntrack_max=1048576
     fs.inotify.max_user_watches=65536
@@ -24,41 +24,41 @@ data:
   setup.sh: |-
     #!/bin/sh
     set -ex
-    cp 99-kube-node-tunning.conf /etc/sysctl.d
-    sysctl -p /etc/sysctl.d/99-kube-node-tunning.conf
-    # cat 99-kube-node-tunning.conf
+    cp 99-kube-node-tuning.conf /etc/sysctl.d
+    sysctl -p /etc/sysctl.d/99-kube-node-tuning.conf
+    # cat 99-kube-node-tuning.conf
     sleep infinity
 ---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: kube-node-tunning
-  namespace: kube-node-tunning
+  name: kube-node-tuning
+  namespace: kube-node-tuning
   labels:
-    app: kube-node-tunning
+    app: kube-node-tuning
 spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: kube-node-tunning
+      app: kube-node-tuning
   template:
     metadata:
       labels:
-        app: kube-node-tunning
+        app: kube-node-tuning
     spec:
       containers:
-        - name: kube-node-tunning
+        - name: kube-node-tuning
           image: docker.m.daocloud.io/alpine
           command:
             - /bin/sh
             - setup.sh
-          workingDir: /opt/kube-node-tunning
+          workingDir: /opt/kube-node-tuning
           # command:
           #   - sleep
           #   - infinity
           volumeMounts:
             - name: sysctl-config-volume
-              mountPath: /opt/kube-node-tunning
+              mountPath: /opt/kube-node-tuning
             - name: sysctl-dir
               mountPath: /etc/sysctl.d
           securityContext:
