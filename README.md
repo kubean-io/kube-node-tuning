@@ -12,6 +12,8 @@ kube-node-tuning is aimed at kernel tuning by kubernetes. It's useful to :
 kubectl apply -f https://raw.githubusercontent.com/DaoCloud/kube-node-tuning/main/hack/kube-node-tuning.yaml
 ```
 
+Tips: If the machine is in China, you should following by: [quick-start-in-china](docs/quick-start-in-china.md)
+
 The kernel's sysctl settings are applied to the node at /etc/99-kube-node-tuning.conf.
 
 Check if the settings are applied by the following command.
@@ -21,7 +23,6 @@ SSH to the node of cluster
 cat /etc/sysctl.d/99-kube-node-tuning.conf
 sysctl -a # view the sysctl setting
 ```
-
 
 ## Configuration
 
