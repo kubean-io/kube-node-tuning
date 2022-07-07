@@ -46,7 +46,7 @@ spec:
     spec:
       initContainers:
         - name: setup-sysctl
-          image: docker.m.daocloud.io/alpine
+          image: alpine
           command:
             - /bin/sh
             - setup.sh
@@ -61,7 +61,7 @@ spec:
             runAsUser: 0
       containers:
         - name: kube-node-tuning
-          image: docker.m.daocloud.io/alpine
+          image: alpine
           command:
             - sleep
             - infinity
@@ -78,6 +78,7 @@ spec:
           hostPath:
             path: /etc/sysctl.d
             type: ""
+      hostNetwork: true
       terminationGracePeriodSeconds: 0
   updateStrategy:
     rollingUpdate:
