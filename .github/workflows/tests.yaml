@@ -1,12 +1,13 @@
+---
 name: Tests
-on: [push, pull_request]
+on: [push, pull_request]  # yamllint disable-line rule:truthy
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-go@v2
-      with:
-        go-version: "1.17.8"
-    - run: |
-        make test
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.17.8"
+      - run: |
+          make test
