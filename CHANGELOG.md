@@ -1,11 +1,7 @@
 # Changelog
 
-## 0.0.0 TODO
+## 0.0.1
 
 #### Enhancements:
 
-TODO
-
-#### Bug Fixes:
-
-TODO
+First Release
