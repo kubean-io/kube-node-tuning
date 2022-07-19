@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Values.configmap.name}}
-  namespace: {{.Release.Namespace | quote}}
+  name: {{ .Values.configmap.name }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
 {{ include "kube-node-tuning.labels" . | indent 4 }}
 data:

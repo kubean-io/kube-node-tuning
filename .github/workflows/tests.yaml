@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Prepare Environment
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
       - uses: actions/setup-go@v3
         with:
           go-version: "1.17.8"

@@ -2,11 +2,11 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: {{include "kube-node-tuning.fullname" .}}
-  namespace: {{.Release.Namespace | quote}}
+  name: {{ include "kube-node-tuning.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
 {{ include "kube-node-tuning.labels" . | indent 4 }}
-spec:
+spec: 
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "kube-node-tuning.name" . }}
