@@ -4,6 +4,10 @@ test:
 	# yamllint -s .
 	helm lint charts/ --strict
 
+GITHUB_OWNER?=kubean-io
+GITHUB_REPO?=kube-node-tuning
+GITHUB_TOKEN?=
+
 helm-chart-release:
 	@cr package charts
 	@cr upload -o $(GITHUB_OWNER) -r $(GITHUB_REPO) -t $(GITHUB_TOKEN)
