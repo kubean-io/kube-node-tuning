@@ -8,7 +8,6 @@ on:
 
 jobs:
   release-charts:
-    needs: [publish-images]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
