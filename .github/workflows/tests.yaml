@@ -1,6 +1,14 @@
 ---
 name: Tests
-on: [push, pull_request]  # yamllint disable-line rule:truthy
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ main ]
+  schedule:
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
