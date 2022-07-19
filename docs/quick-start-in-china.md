@@ -3,5 +3,5 @@
 If the machine is in China, you should replace the command to:
 
 ```
-curl -L "http://ghproxy.com/https://raw.githubusercontent.com/DaoCloud/kube-node-tuning/main/hack/kube-node-tuning.yaml" | sed 's/image: alpine/image: docker.m.daocloud.io\/alpine/g' | kubectl apply -f -
+helm upgrade --install -n kube-node-tuning kube-node-tuning charts/ --create-namespace --set image.registry=docker.m.daocloud.io
 ```

@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "kube-node-tuning.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+{{ include "kube-node-tuning.labels" . | indent 4 }}
+spec: 
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "kube-node-tuning.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 100%
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app.kubernetes.io/name: {{ include "kube-node-tuning.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      initContainers:
+        - name: setup-sysctl
+          image: >
+            {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - setup.sh
+          workingDir: /opt/kube-node-tuning
+          volumeMounts:
+            - name: sysctl-config-volume
+              mountPath: /opt/kube-node-tuning
+            - name: sysctl-dir
+              mountPath: /etc/sysctl.d
+          securityContext:
+            privileged: true
+            runAsUser: 0
+      containers:
+        - name: kube-node-tuning
+          image: >
+            {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - sleep
+            - infinity
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      nodeSelector:
+        kubernetes.io/os: linux
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists
+      volumes:
+        - name: sysctl-config-volume
+          configMap:
+            name: {{ .Values.configmap.name }}
+        - name: sysctl-dir
+          hostPath:
+            path: /etc/sysctl.d
+            type: ""
+      hostNetwork: true
+      terminationGracePeriodSeconds: 0

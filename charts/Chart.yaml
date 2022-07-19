@@ -1,0 +1,15 @@
+---
+apiVersion: v2
+description: |
+  kube-node-tuning is aimed at kernel tuning by kubernetes.
+  It's useful to High performance application, Large Scale Cluster, Network Tuning.
+home: https://github.com/kubean-io/kube-node-tuning
+icon: https://raw.githubusercontent.com/kubean-io/kube-node-tuning/main/charts/icon.png
+keywords:
+  - tuning
+  - sysctl
+name: kube-node-tuning
+sources:
+  - https://github.com/kubean-io/kube-node-tuning
+appVersion: 0.1.0
+version: 0.1.0

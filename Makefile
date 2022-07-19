@@ -1,5 +1,5 @@
 
 .PHONY: test
 test:
-	yamllint --strict .
-	
+	# yamllint -s .
+	helm lint charts/ --strict
