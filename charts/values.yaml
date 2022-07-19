@@ -1,0 +1,60 @@
+---
+## @section parameters
+
+## @param image.registry Fluentd image registry
+## @param image.repository Fluentd image repository
+## @param image.tag Fluentd image tag (immutable tags are recommended)
+## @param image.pullPolicy Fluentd image pull policy
+## @param image.pullSecrets Fluentd image pull secrets
+##
+image:
+  registry: docker.io
+  repository: alpine
+  tag: latest
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  pullSecrets: []
+
+configmap:
+  # specify the config map name
+  name: kube-node-tuning-config
+
+  sysctl-conf: |-
+    kernel.pid_max=131072
+    net.netfilter.nf_conntrack_max=1048576
+    fs.inotify.max_user_watches=65536
+
+    net.ipv4.neigh.default.gc_thresh1=8192
+    net.ipv4.neigh.default.gc_thresh2=32768
+    net.ipv4.neigh.default.gc_thresh3=65536
+    net.ipv6.neigh.default.gc_thresh1=8192
+    net.ipv6.neigh.default.gc_thresh2=32768
+    net.ipv6.neigh.default.gc_thresh3=65536
+  setup-sh: |-
+    #!/bin/sh
+    set -ex
+    cp 99-kube-node-tuning.conf /etc/sysctl.d
+    sysctl -p /etc/sysctl.d/99-kube-node-tuning.conf
+
+podAnnotations: {}
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
