@@ -11,7 +11,7 @@ kube-node-tuning is aimed at kernel tuning by kubernetes. It's useful to :
 ```
 export VERSION=v0.2.0
 helm repo add kube-node-tuning https://kubean-io.github.io/kube-node-tuning/
-helm install -n kube-node-tuning kube-node-tuning kube-node-tuning/kube-node-tuning --create-namespace
+helm install -n kube-node-tuning kube-node-tuning kube-node-tuning/kube-node-tuning --version $VERSION --create-namespace
 
 ```
 
