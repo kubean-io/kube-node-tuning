@@ -1,7 +1,7 @@
 
 .PHONY: test
 test:
-	# yamllint -s .
+	yamllint -s . || true
 	helm lint charts/ --strict
 
 GITHUB_OWNER?=kubean-io
