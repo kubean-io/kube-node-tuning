@@ -35,11 +35,19 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "kube-node-tuning.labels" -}}
-app.kubernetes.io/name: {{ include "kube-node-tuning.name" . }}
 helm.sh/chart: {{ include "kube-node-tuning.chart" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "kube-node-tuning.selectorLabels" . }}
+
+{{- end -}}
+
+{{/*
+Selector labels
+*/}}
+{{- define "kube-node-tuning.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "kube-node-tuning.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
