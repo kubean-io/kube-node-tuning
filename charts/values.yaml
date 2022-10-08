@@ -29,7 +29,7 @@ configmap:
   name: kube-node-tuning-config
 
   sysctl-conf: |-
-    kernel.pid_max=131072
+    kernel.pid_max=4194304
     net.netfilter.nf_conntrack_max=1048576
     fs.inotify.max_user_watches=65536
 
