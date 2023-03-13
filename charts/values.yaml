@@ -32,6 +32,7 @@ configmap:
     kernel.pid_max=4194304
     net.netfilter.nf_conntrack_max=1048576
     fs.inotify.max_user_watches=65536
+    fs.inotify.max_user_instances=8192
 
     net.ipv4.neigh.default.gc_thresh1=8192
     net.ipv4.neigh.default.gc_thresh2=32768
