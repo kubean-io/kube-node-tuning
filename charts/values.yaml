@@ -9,7 +9,7 @@
 ##
 image:
   registry: docker.io
-  repository: busybox
+  repository: library/busybox
   tag: stable
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
