@@ -40,6 +40,10 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
+          {{- with .Values.image.pullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
       containers:
         - name: kube-node-tuning
           image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
@@ -49,6 +53,10 @@ spec:
             - infinity
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.image.pullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
       nodeSelector:
         kubernetes.io/os: linux
       priorityClassName: system-node-critical
